@@ -1,0 +1,6 @@
+[Jan-15-2019 17:38:26] mysqli_connect(): (HY000/1045): Access denied for user 'Mitc250dev'@'fisher.dreamhost.com' (using password: YES) in /home/thohar69/kiseharrington.com/wn19/inc_0700/common_inc.php on line 1271
+[Jan-15-2019 17:38:26] Access denied for user 'Mitc250dev'@'fisher.dreamhost.com' (using password: YES) in /home/thohar69/kiseharrington.com/wn19/inc_0700/common_inc.php on line 1271
+[Jan-15-2019 17:38:31] SQLSTATE[HY000] [1045] Access denied for user 'Mitc250dev'@'fisher.dreamhost.com' (using password: YES) in /home/thohar69/kiseharrington.com/wn19/inc_0700/common_inc.php on line 1296
+[Jan-15-2019 17:38:31] Undefined variable: db in /home/thohar69/kiseharrington.com/wn19/inc_0700/common_inc.php on line 1298
+[Jan-15-2019 17:40:57] mysqli_connect(): (HY000/1045): Access denied for user 'Mitc250dev'@'fisher.dreamhost.com' (using password: YES) in /home/thohar69/kiseharrington.com/wn19/inc_0700/common_inc.php on line 1271
+[Jan-15-2019 17:40:57] Access denied for user 'Mitc250dev'@'fisher.dreamhost.com' (using password: YES) in /home/thohar69/kiseharrington.com/wn19/inc_0700/common_inc.php on line 1271
