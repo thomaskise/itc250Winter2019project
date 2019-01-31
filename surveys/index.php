@@ -74,8 +74,11 @@ $sql = $myPager->loadSQL($sql);  #load SQL, add offset
 # connection comes first in mysqli (improved) function
 $result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
 
+
 if (isset($_GET['pg'])) {
     $_SESSION['currentpage'] = $_GET['pg'];
+}else{
+    $_SESSION['currentpage'] = 1;
 }
 
 if(mysqli_num_rows($result) > 0)
