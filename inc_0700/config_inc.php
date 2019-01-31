@@ -53,6 +53,7 @@ header("Cache-Control: no-cache");header("Expires: -1");#Helps stop browser & pr
 # START CONSTANTS & PATHS (universal file paths & values)-----------------------------------------------------------------
 /* automatic path settings - use the following 4 path settings for placing all code in one application folder */ 
 define('VIRTUAL_PATH', $protocol . $_SERVER["HTTP_HOST"] . '/' . $sub_folder); # Virtual (web) 'root' of application for images, JS & CSS files
+define('SURVEYS_PATH', $protocol . $_SERVER["HTTP_HOST"] . '/' . $sub_folder . '/surveys'); # Virtual (web) 'root' of application for images, JS & CSS files
 define('PHYSICAL_PATH', $_SERVER["DOCUMENT_ROOT"] . '/' . $sub_folder); # Physical (PHP) 'root' of application for file & upload reference
 define('INCLUDE_PATH', PHYSICAL_PATH . 'inc_0700/'); # Path to PHP include files - INSIDE APPLICATION ROOT
 //define('INCLUDE_PATH', '/home/classes/horsey01/inc_cotlets/'); #Path to PHP include files - OUTSIDE WEB ROOT
@@ -68,10 +69,11 @@ include INCLUDE_PATH . 'credentials_inc.php'; # Stores DB credentials - part of 
 include INCLUDE_PATH . 'common_inc.php'; # Provides common utility functions - part of nmCommon package
 include INCLUDE_PATH . 'custom_inc.php'; # Provides spot for custom utility functions - part of nmCommon package
 include INCLUDE_PATH . 'MyAutoLoader.php'; #Allows multiple versions of AutoLoaded classes
+//include INCLUDE_PATH . 'config-page-switch_inc.php'; varible settings for page display
 # END INCLUDES (reference include files)---------------------------------------------------------------------
 
 # CONTENT CONFIGURATION AREA (theme, content areas & nav arrays for header/footer )-----------------------------------------
-$config->theme = 'SmallPark'; #default theme (header/footer combo) see 'Themes' folder for others and info (was Bootswatch)
+$config->theme = 'Bootswatch'; #default theme (header/footer combo) see 'Themes' folder for others and info (was Bootswatch)
 $config->style = 'cerulean.css'; #currently only Bootswatch Theme uses style to switch look & feel
 $config->slogan = 'Cotlets are Awesome!';
 $config->metaDescription = 'Welcome to the Cotlets website.  We split off from Applets.  But We are better.';

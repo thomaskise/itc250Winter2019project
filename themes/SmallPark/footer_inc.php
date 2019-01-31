@@ -18,9 +18,7 @@
 	<!-- beginning of footer -->
 	</div>
 	<div id="footer">
-	<p><a href="http://validator.w3.org/check?uri=referer" target="_blank">Valid 
-  XHTML</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank">Valid 
-  CSS</a> | <? echo $config->copyright; ?>  | Design by <a href="http://smallpark.org">SmallPark</a></p>
+	<p><a href="https://validator.w3.org/check/referer" target="_blank">Valid HTML5</a> | <a href="https://jigsaw.w3.org/css-validator/check?uri=referer" target="_blank">Valid CSS</a> | <? echo $config->copyright; ?>  | Design by <a href="https://smallpark.org">SmallPark</a></p>
   </div>
 </div>
 </body>

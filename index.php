@@ -1,4 +1,4 @@
-<?php
+    <?php
 /**
  * index.php is a model for largely static PHP pages 
  *

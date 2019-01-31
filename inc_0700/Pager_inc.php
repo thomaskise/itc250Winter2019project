@@ -198,7 +198,8 @@ class Pager
 			}
 			
 			$maxPage = ceil($this->numrows/$this->rowsPerPage); //total pages
-			$self = $this->base_URL() . "/" . basename($_SERVER['PHP_SELF']);
+			//$self = $this->base_URL() . "/surveys/" . basename($_SERVER['PHP_SELF']);
+			$self = SURVEYS_PATH . "/" . basename($_SERVER['PHP_SELF']);
 			if ($this->pageNum > 1)
 			{
 				$page = $this->pageNum - 1;

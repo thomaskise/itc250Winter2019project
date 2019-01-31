@@ -1389,3 +1389,25 @@ function safeEmail($to, $subject, $message, $replyTo='',$contentType='text/html;
 	}
 	return true;
 }#end required_params()
+
+class SurveyDetail{
+    public $ID = 0;
+    public $Question = '';
+    public $Description = '';
+    public $Answers = array();
+    
+    
+    public function __construct($ID,$Question,$Description){
+        $this->ID = $ID;
+        $this->Question = $Question;
+        $this->Description = $Description;
+    }//end constructor
+    
+    public function addAnswer($answer){
+       
+        $this->Answers[] = $answer;
+        
+    }//end addQuestion
+    
+}//end Survey class
+
