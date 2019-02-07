@@ -1,6 +1,5 @@
 <?php
 //items4.php
-
 $myItem = new Item(1,"Taco","Our Tacos are awesome!",4.95);
 $myItem->addExtra("Sour Cream");
 $myItem->addExtra("Cheese");
@@ -20,17 +19,19 @@ $myItem->addExtra("Lemon Wedges");
 $myItem->addExtra("Avacado");
 $config->items[] = $myItem;
 
-$myItem = new Item(3,"Hot Tamale","Our Tamales are awesome!",6.95);
+$myItem = new Item(4,"Hot Tamale","Our Tamales are awesome!",7.95);
 $myItem->addExtra("Salsa");
 $myItem->addExtra("Guacamole");
 $myItem->addExtra("Habenaro Peppers");
 $myItem->addExtra("Sour Cream");
 $config->items[] = $myItem;
 
-//create a counter to load the ids...
-//$items[] = new Item(1,"Taco","Our Tacos are awesome!",4.95);
-//$items[] = new Item(2,"Sundae","Our Sundaes are awesome!",3.95);
-//$items[] = new Item(3,"Salad","Our Salads are awesome!",5.95);
+$myItem = new Item(5,"Chile Relleno","Chile Relleno are awesome!",6.95);
+$myItem->addExtra("Salsa");
+$myItem->addExtra("Guacamole");
+$myItem->addExtra("Habenaro Peppers");
+$myItem->addExtra("Sour Cream");
+$config->items[] = $myItem;
 
 /*
 echo '<pre>';
@@ -38,7 +39,6 @@ var_dump($items);
 echo '</pre>';
 die;
 */
-
 
 class Item
 {
@@ -62,16 +62,4 @@ class Item
         $this->Extras[] = $extra;
         
     }#end addExtra()
-
 }#end Item class
-
-
-
-
-
-
-
-
-
-
-

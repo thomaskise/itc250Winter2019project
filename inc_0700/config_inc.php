@@ -59,7 +59,7 @@ define('INCLUDE_PATH', PHYSICAL_PATH . 'inc_0700/'); # Path to PHP include files
 //define('INCLUDE_PATH', '/home/classes/horsey01/inc_cotlets/'); #Path to PHP include files - OUTSIDE WEB ROOT
 define('LOG_PATH', INCLUDE_PATH . 'log/'); # Log files are stored in the PHP include folder
 define('ADMIN_PATH', VIRTUAL_PATH . 'admin/'); # Admin files are in subfolder
-define('thom@kiseharrington.com', 'SUPPORT EMAIL GOES HERE'); # Email of site support
+define('SUPPORT_EMAIL', 'esteban@example.com'); # Email of site support
 define('PREFIX', 'wn19_'); #Adds uniqueness to DB table names.  Limits hackability, naming collisions.  In WordPress the prefix is wp_
 define('THIS_PAGE', basename($_SERVER['PHP_SELF'])); # Current page name, stripped of folder info - (saves resources)
 # END CONSTANTS & PATHS (universal file paths & values)--------------------------------------------------------------------
@@ -69,11 +69,19 @@ include INCLUDE_PATH . 'credentials_inc.php'; # Stores DB credentials - part of 
 include INCLUDE_PATH . 'common_inc.php'; # Provides common utility functions - part of nmCommon package
 include INCLUDE_PATH . 'custom_inc.php'; # Provides spot for custom utility functions - part of nmCommon package
 include INCLUDE_PATH . 'MyAutoLoader.php'; #Allows multiple versions of AutoLoaded classes
-//include INCLUDE_PATH . 'config-page-switch_inc.php'; varible settings for page display
 # END INCLUDES (reference include files)---------------------------------------------------------------------
 
 # CONTENT CONFIGURATION AREA (theme, content areas & nav arrays for header/footer )-----------------------------------------
-$config->theme = 'Bootswatch'; #default theme (header/footer combo) see 'Themes' folder for others and info (was Bootswatch)
+$config->theme = 
+	
+//'BlueBusiness';
+
+'Bootswatch';
+
+//'SmallPark';
+
+
+#default theme (header/footer combo) see 'Themes' folder for others and info
 $config->style = 'cerulean.css'; #currently only Bootswatch Theme uses style to switch look & feel
 $config->slogan = 'Cotlets are Awesome!';
 $config->metaDescription = 'Welcome to the Cotlets website.  We split off from Applets.  But We are better.';
@@ -101,10 +109,11 @@ if(startSession() && isset($_SESSION['AdminID']) && $config->theme != 'Bootswatc
 #nav1 is the main navigation - tilde separator below splits text of link from title attribute
 $nav1['index.php'] = "Home~A model for building largely static web pages";
 $nav1['surveys/'] = "Surveys~The entrance to our Survey App";
-$nav1['food/'] = "Get Great Food Here";
+$nav1['food/'] = "Great food here!";
 $nav1['demo/demo_shared.php'] = "Shared~A demo page for building mysqli shared connection based applications.";
 $nav1['demo/demo_pdo.php'] = "PDO~A demo page for building PDO connection based applications.";
 $nav1['demo/demo_contact.php'] = "Contact~A demo for building postback forms";
+$nav1['food/index.php'] = "Get Great Food Here!"; //
 $config->nav1 = $nav1;  #add to global config object - now available in all header/footers
 $config->tableEditor = ADMIN_PATH . 'nmEdit.php'; # Table Editor part of nmEdit package
 # CONTENT CONFIGURATION AREA (theme, content areas & nav arrays for header/footer )-----------------------------------------
@@ -323,6 +332,9 @@ $isOpen = fopen($fileName,$myMode);
         return FALSE;
   }
 }#End fileWrite()
+
+//sets the number cast to correct currency format 
+setlocale(LC_MONETARY,"en_US.UTF-8"); // utf-8 standard
 
 # END ERROR HANDLING FUNCTIONS (error handling/logging functions)---------------------------------------------------------- 
 #no closing PHP tag, on purpose
