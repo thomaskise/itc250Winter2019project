@@ -113,7 +113,6 @@ $nav1['food/'] = "Great food here!";
 $nav1['demo/demo_shared.php'] = "Shared~A demo page for building mysqli shared connection based applications.";
 $nav1['demo/demo_pdo.php'] = "PDO~A demo page for building PDO connection based applications.";
 $nav1['demo/demo_contact.php'] = "Contact~A demo for building postback forms";
-$nav1['food/index.php'] = "Get Great Food Here!"; //
 $config->nav1 = $nav1;  #add to global config object - now available in all header/footers
 $config->tableEditor = ADMIN_PATH . 'nmEdit.php'; # Table Editor part of nmEdit package
 # CONTENT CONFIGURATION AREA (theme, content areas & nav arrays for header/footer )-----------------------------------------
