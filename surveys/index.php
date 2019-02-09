@@ -49,7 +49,7 @@ $config->nav1 = array("page.php"=>"New Page!") + $config->nav1; #add a new page 
 
 get_header(); #defaults to theme header or header_inc.php
 ?>
-<h3 align="center"><?=smartTitle();?></h3>
+<h3 align="center">Survey List</h3>
 <!--
 <p>This page, along with <b>demo_view_pager.php</b>, demonstrate a List/View web application.</p>
 <p>It was built on the mysql shared web application page, <b>demo_shared.php</b></p>
