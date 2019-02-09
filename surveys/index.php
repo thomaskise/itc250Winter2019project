@@ -90,27 +90,31 @@ if(mysqli_num_rows($result) > 0)
     echo '<h4>We have ' . $myPager->showTotal() . ' ' . $itemz . ' as listed:</h4>';
     # Create the table header
     echo '
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Date Created</th>
-              <th scope="col">Survey Title</th>
-              <th scope="col">Created by</th>
-            </tr>
-          </thead>
-          <tbody>';
-	while($row = mysqli_fetch_assoc($result))
-	{# process each row
-      echo '<tr>
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Survey Title</th>
+                  <th scope="col">Created by</th>
+                </tr>
+              </thead>
+              <tbody>';
+              while($row = mysqli_fetch_assoc($result))
+              {# process each row
+                echo '
+                  <tr>
                   <td>' . dbOut($row['DateAdded']) . '</td>
                   <td><a href="' . VIRTUAL_PATH . 'surveys/survey_view.php?id=' . (int)$row['SurveyID'] . '">' . dbOut($row['Title']) . '</a></td>
                   <td>' . dbOut($row['AdminName']) . '</td>
-            </tr>';
-	}
-	echo '</tbody>
-        </table>' . $myPager->showNAV(); # show paging nav, only if enough records	 
+                  </tr>';
+              }
+              echo '</tbody>
+            </table>
+        </div>'
+        . $myPager->showNAV(); # show paging nav, only if enough records	 
 }else{#no records
-    echo "<div align=center>There are currently no surveys!</div>";	
+   echo "<div align=center>There are currently no surveys!</div>";	
 }
 @mysqli_free_result($result);
 
