@@ -50,10 +50,7 @@ if($mySurvey->isValid)
 	echo "The survey detail has not yet been created!";	
 }
 
-echo '
-    <button type="button" class="btn btn-primary">
-        <a style="color:white", href="' . SURVEYS_PATH . '/index.php?pg=' . $_SESSION["currentpage"] . '">Check out another survey?</a>
-    </button>';
+ echo '<a href="' . VIRTUAL_PATH . 'surveys/index.php?pg=' . $_SESSION["currentpage"] . '">Check out another survey?</a>';
 
 get_footer(); #defaults to theme footer or footer_inc.php
 

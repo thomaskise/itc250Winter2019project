@@ -53,7 +53,7 @@ header("Cache-Control: no-cache");header("Expires: -1");#Helps stop browser & pr
 # START CONSTANTS & PATHS (universal file paths & values)-----------------------------------------------------------------
 /* automatic path settings - use the following 4 path settings for placing all code in one application folder */ 
 define('VIRTUAL_PATH', $protocol . $_SERVER["HTTP_HOST"] . '/' . $sub_folder); # Virtual (web) 'root' of application for images, JS & CSS files
-define('SURVEYS_PATH', $protocol . $_SERVER["HTTP_HOST"] . '/' . $sub_folder . '/surveys'); # Virtual (web) 'root' of application for images, JS & CSS files
+define('SURVEYS_PATH', $protocol . $_SERVER["HTTP_HOST"] . '/' . $sub_folder . 'surveys'); # Virtual (web) 'root' of application for images, JS & CSS files
 define('PHYSICAL_PATH', $_SERVER["DOCUMENT_ROOT"] . '/' . $sub_folder); # Physical (PHP) 'root' of application for file & upload reference
 define('INCLUDE_PATH', PHYSICAL_PATH . 'inc_0700/'); # Path to PHP include files - INSIDE APPLICATION ROOT
 //define('INCLUDE_PATH', '/home/classes/horsey01/inc_cotlets/'); #Path to PHP include files - OUTSIDE WEB ROOT
@@ -109,7 +109,6 @@ if(startSession() && isset($_SESSION['AdminID']) && $config->theme != 'Bootswatc
 #nav1 is the main navigation - tilde separator below splits text of link from title attribute
 $nav1['index.php'] = "Home~A model for building largely static web pages";
 $nav1['surveys/'] = "Surveys~The entrance to our Survey App";
-$nav1['food/'] = "Great food here!";
 $nav1['demo/demo_shared.php'] = "Shared~A demo page for building mysqli shared connection based applications.";
 $nav1['demo/demo_pdo.php'] = "PDO~A demo page for building PDO connection based applications.";
 $nav1['demo/demo_contact.php'] = "Contact~A demo for building postback forms";
