@@ -21,7 +21,7 @@
 # START SETTINGS (show or hide page errors, turn on/off error logging)---------------------------------------------
 # We can un-comment the line below to either see default errors (1) or shut off visual errors completely (0). 
 //ini_set('error_reporting', E_ALL | E_STRICT);  # E_ALL | E_STRICT = currently tracking all errors & warnings
-$sub_folder = 'wn19/';//If app installed in subfolder, place here.  name of folder, no leading or trailing forward or backslash
+$sub_folder = 'wn19test/';//If app installed in subfolder, place here.  name of folder, no leading or trailing forward or backslash
 define('SHOW_ALL_ERRORS', true); # TRUE = SHOW ALL SITE ERRORS - if FALSE must be logged in as ADMIN to view errors
 define('LOG_ALL_ERRORS', true); # TRUE = TRACK ALL ERRORS IN ERROR LOG FILE (UPDATED 7/14 FOR ZEPHIR!)
 define('SECURE',true); # true forces secure connection, https, for all site pages
@@ -63,6 +63,13 @@ define('SUPPORT_EMAIL', 'esteban@example.com'); # Email of site support
 define('PREFIX', 'wn19_'); #Adds uniqueness to DB table names.  Limits hackability, naming collisions.  In WordPress the prefix is wp_
 define('THIS_PAGE', basename($_SERVER['PHP_SELF'])); # Current page name, stripped of folder info - (saves resources)
 # END CONSTANTS & PATHS (universal file paths & values)--------------------------------------------------------------------
+# START SESSIONS SETTINGS --------------------------------------------------
+ini_set('session.gc_maxlifetime', '3600'); //set session duration (maxlifetime) to 1 hour - 60 x 60 x 1
+include INCLUDE_PATH . 'session_db_inc.php'; //Session database handling include file
+//ini_set('session.save_path','/home/thohar69/sessions'); // Change default session storage
+$cookie_path = "/";
+$cookie_timeout = 60 * 30; // in seconds
+session_set_cookie_params($cookie_timeout, $cookie_path);
 
 # START INCLUDES (reference include files)-------------------------------------------------------------------
 include INCLUDE_PATH . 'credentials_inc.php'; # Stores DB credentials - part of nmCommon package
@@ -109,6 +116,7 @@ if(startSession() && isset($_SESSION['AdminID']) && $config->theme != 'Bootswatc
 #nav1 is the main navigation - tilde separator below splits text of link from title attribute
 $nav1['index.php'] = "Home~A model for building largely static web pages";
 $nav1['surveys/'] = "Surveys~The entrance to our Survey App";
+$nav1['news/'] = "News~The entrance to our News App";
 $nav1['demo/demo_shared.php'] = "Shared~A demo page for building mysqli shared connection based applications.";
 $nav1['demo/demo_pdo.php'] = "PDO~A demo page for building PDO connection based applications.";
 $nav1['demo/demo_contact.php'] = "Contact~A demo for building postback forms";
