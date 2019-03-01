@@ -1,5 +1,5 @@
 <?php
-/**
+/***
  * config_inc.php stores site-wide configuration settings, functions & file references
  * 
  * Stores configuration data like support email address, SUPPORT_EMAIL

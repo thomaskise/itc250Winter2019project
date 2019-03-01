@@ -1,5 +1,5 @@
 <?php
-/**
+/***
  * MY_Survey extends the Survey class so we can add 
  * our own methods, etc.
  * Survey.php provides the main access class for SurveySez project

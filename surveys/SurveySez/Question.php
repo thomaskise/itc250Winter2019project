@@ -1,5 +1,5 @@
 <?php
-/**
+/***
  * Question.php provides a way to store questions related to Surveys for the SurveySez 
  * project
  *

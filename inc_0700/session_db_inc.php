@@ -1,5 +1,5 @@
 <?php 
-/**
+/***
  * session_db_inc.php uses a database to store session info, and override default file/cookie based session handler
  * 
  * Example based on work of Larry Ullmann, author of "PHP5 Advanced", Script 3.1 - db_sessions.inc.php

@@ -1,5 +1,5 @@
 <?php
-/**
+/***
  * Answer.php provides a way to store answers to questions to Surveys for the SurveySez 
  * project
  *

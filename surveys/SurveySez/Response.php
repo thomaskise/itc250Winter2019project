@@ -1,5 +1,5 @@
 <?php
-/**
+/***
  * Response.php provides additional data access classes for the SurveySez project
  * 
  * This file requires Survey.php to access the original Survey, Question & Answer classes

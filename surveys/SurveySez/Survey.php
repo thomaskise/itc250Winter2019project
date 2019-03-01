@@ -1,5 +1,5 @@
 <?php
-/**
+/***
  * Survey.php provides the main access class for SurveySez project
  * 
  * Data access for several of the SurveySez pages are handled via Survey classes 

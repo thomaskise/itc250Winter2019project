@@ -1,5 +1,5 @@
 <?php
-/**
+/***
  * survey_view.php is a page to demonstrate the proof of concept of the 
  * initial SurveySez objects.
  *
