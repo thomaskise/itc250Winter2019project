@@ -63,13 +63,6 @@ define('SUPPORT_EMAIL', 'esteban@example.com'); # Email of site support
 define('PREFIX', 'wn19_'); #Adds uniqueness to DB table names.  Limits hackability, naming collisions.  In WordPress the prefix is wp_
 define('THIS_PAGE', basename($_SERVER['PHP_SELF'])); # Current page name, stripped of folder info - (saves resources)
 # END CONSTANTS & PATHS (universal file paths & values)--------------------------------------------------------------------
-# START SESSIONS SETTINGS --------------------------------------------------
-ini_set('session.gc_maxlifetime', '3600'); //set session duration (maxlifetime) to 1 hour - 60 x 60 x 1
-include INCLUDE_PATH . 'session_db_inc.php'; //Session database handling include file
-//ini_set('session.save_path','/home/thohar69/sessions'); // Change default session storage
-$cookie_path = "/";
-$cookie_timeout = 60 * 30; // in seconds
-session_set_cookie_params($cookie_timeout, $cookie_path);
 
 # START INCLUDES (reference include files)-------------------------------------------------------------------
 include INCLUDE_PATH . 'credentials_inc.php'; # Stores DB credentials - part of nmCommon package
@@ -77,6 +70,13 @@ include INCLUDE_PATH . 'common_inc.php'; # Provides common utility functions - p
 include INCLUDE_PATH . 'custom_inc.php'; # Provides spot for custom utility functions - part of nmCommon package
 include INCLUDE_PATH . 'MyAutoLoader.php'; #Allows multiple versions of AutoLoaded classes
 # END INCLUDES (reference include files)---------------------------------------------------------------------
+# START SESSIONS SETTINGS --------------------------------------------------
+ini_set('session.gc_maxlifetime', '3600'); //set session duration (maxlifetime) to 1 hour - 60 x 60 x 1
+include INCLUDE_PATH . 'session_db_inc.php'; //Session database handling include file
+//ini_set('session.save_path','/home/thohar69/sessions'); // Change default session storage
+$cookie_path = "/";
+$cookie_timeout = 60 * 30; // in seconds
+session_set_cookie_params($cookie_timeout, $cookie_path);
 
 # CONTENT CONFIGURATION AREA (theme, content areas & nav arrays for header/footer )-----------------------------------------
 $config->theme = 
@@ -219,12 +219,12 @@ function myErrorHandler ($e_number, $e_message, $e_file, $e_line, $e_vars)
 		    //echo 'Caught exception: ',  $e->getMessage(), "\n";
 		}
 	}
-	if (SHOW_ALL_ERRORS || isset($_SESSION['AdminID']))
-	{# Display generic error message, with support email from config file
-		printDeveloperError($e_file,$e_line,$e_message,$counter); 
-	}else{# Show errors directly on page.  (troubleshooting purposes only!)
-		if($counter < 2) { printUserError($e_file,$e_line); } #only print one error message to user
-	}
+//	if (SHOW_ALL_ERRORS || isset($_SESSION['AdminID']))
+//	{# Display generic error message, with support email from config file
+//		printDeveloperError($e_file,$e_line,$e_message,$counter); 
+//	}else{# Show errors directly on page.  (troubleshooting purposes only!)
+//		if($counter < 2) { printUserError($e_file,$e_line); } #only print one error message to user
+//	}
 }# End myErrorHandler()
 
 /**

@@ -1,7 +1,44 @@
 <?php
-//Survey.php
-namespace SurveySez;
-
+/**
+ * Survey.php provides the main access class for SurveySez project
+ * 
+ * Data access for several of the SurveySez pages are handled via Survey classes 
+ * named Survey,Question & Answer, respectively.  These classes model the one to many 
+ * relationships between their namesake database tables. 
+ *
+ * A survey object (an instance of the Survey class) can be created in this manner:
+ *
+ *<code>
+ *$mySurvey = new SurveySez\Survey(1);
+ *</code>
+ *
+ * In which one is the number of a valid Survey in the database. 
+ *
+ * The forward slash in front of \IDB picks up the global namespace, which is required 
+ * now that we're here inside the SurveySez namespace: \\IDB::conn()
+ *
+ * Version 2 introduces two new classes, the Response and Choice classes, and moderate 
+ * changes to the existing classes, Survey, Question & Answer.  The Response class will 
+ * inherit from the Survey Class (using the PHP extends syntax) and will be an elaboration 
+ * on a theme.  
+ *
+ * An instance of the Response class will attempt to identify a SurveyID from the srv_responses 
+ * database table, and if it exists, will attempt to create all associated Survey, Question & Answer 
+ * objects, nearly exactly as the Survey object.
+ *
+ * @package SurveySez
+ * @author William Newman
+ * @version 2.1 2015/05/28
+ * @link http://newmanix.com/ 
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ * @see Question.php
+ * @see Answer.php
+ * @see Response.php
+ * @see Choice.php
+ */
+ 
+ namespace SurveySez;
+ 
 /**
  * Survey Class retrieves data info for an individual Survey
  * 
@@ -14,13 +51,10 @@ namespace SurveySez;
  * A survey object (an instance of the Survey class) can be created in this manner:
  *
  *<code>
- *$mySurvey = new SurveySez\Survey(1);
+ *$mySurvey = new Survey(1);
  *</code>
  *
  * In which one is the number of a valid Survey in the database. 
- *
- * The forward slash in front of IDB picks up the global namespace, which is required 
- * now that we're here inside the SurveySez namespace: \IDB::conn()
  *
  * The showQuestions() method of the Survey object created will access an array of question 
  * objects and internally access a method of the Question class named showAnswers() which will 
@@ -38,6 +72,7 @@ class Survey
 	 public $Description = "";
 	 public $isValid = FALSE;
 	 public $TotalQuestions = 0; #stores number of questions
+	 #v2: Array of questions changed from private to protected to accommodate Response() object
 	 protected $aQuestion = Array();#stores an array of question objects
 	
 	/**
@@ -51,12 +86,13 @@ class Survey
 	{#constructor sets stage by adding data to an instance of the object
 		$this->SurveyID = (int)$id;
 		if($this->SurveyID == 0){return FALSE;}
+		$iConn = \IDB::conn(); #uses a singleton DB class to create a mysqli improved connection 
 		
 		#get Survey data from DB
 		$sql = sprintf("select Title, Description from " . PREFIX . "surveys Where SurveyID =%d",$this->SurveyID);
 		
 		#in mysqli, connection and query are reversed!  connection comes first
-		$result = mysqli_query(\IDB::conn(),$sql) or die(trigger_error(mysqli_error(\IDB::conn()), E_USER_ERROR));
+		$result = mysqli_query($iConn,$sql) or die(trigger_error(mysqli_error($iConn), E_USER_ERROR));
 		if (mysqli_num_rows($result) > 0)
 		{#Must be a valid survey!
 			$this->isValid = TRUE;
@@ -67,21 +103,21 @@ class Survey
 			}
 		}
 		@mysqli_free_result($result); #free resources
-		
 		if(!$this->isValid){return;}  #exit, as Survey is not valid
 		
 		#attempt to create question objects
 		$sql = sprintf("select QuestionID, Question, Description from " . PREFIX . "questions where SurveyID =%d",$this->SurveyID);
-		$result = mysqli_query(\IDB::conn(),$sql) or die(trigger_error(mysqli_error(\IDB::conn()), E_USER_ERROR));
+		$result = mysqli_query($iConn,$sql) or die(trigger_error(mysqli_error($iConn), E_USER_ERROR));
 		if (mysqli_num_rows($result) > 0)
 		{#show results
 		   while ($row = mysqli_fetch_assoc($result))
 		   {
-				#create question, and push onto stack!
-				$this->aQuestion[] = new Question(dbOut($row['QuestionID']),dbOut($row['Question']),dbOut($row['Description'])); 
+				$this->TotalQuestions += 1; #increment total number of questions
+				#Current TotalQuestions added to Question object as Number property - added in v2
+				$this->aQuestion[] = new Question(dbOut($row['QuestionID']),dbOut($row['Question']),dbOut($row['Description']),$this->TotalQuestions);
 		   }
 		}
-		$this->TotalQuestions = count($this->aQuestion); //the count of the aQuestion array is the total number of questions
+		$this->TotalQuestions = count($this->aQuestion); #TotalQuestions derived above - consider deleting this line!  v2 
 		@mysqli_free_result($result); #free resources
 		
 		#attempt to load all Answer objects into cooresponding Question objects 
@@ -91,7 +127,7 @@ class Survey
 		where s.SurveyID = %d   
 		order by a.AnswerID asc";
 		$sql = sprintf($sql,$this->SurveyID); #process SQL
-		$result = mysqli_query(\IDB::conn(),$sql) or die(trigger_error(mysqli_error(\IDB::conn()), E_USER_ERROR));
+		$result = mysqli_query($iConn,$sql) or die(trigger_error(mysqli_error($iConn), E_USER_ERROR));
 		if (mysqli_num_rows($result) > 0)
 		{#at least one answer!
 		   while ($row = mysqli_fetch_assoc($result))
@@ -120,37 +156,21 @@ class Survey
 	 */ 
 	function showQuestions()
 	{
-        $myReturn = '';
-        
-    
-        if($this->TotalQuestions > 0)
+		$myReturn = '';
+		if($this->TotalQuestions > 0)
 		{#be certain there are questions
 			foreach($this->aQuestion as $question)
 			{#print data for each 
-                $myReturn .= '
-        
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><b>' .$question->Text . '</b></h3>
-                    </div>
-                    <div class="panel-body">'
-                        . $question->showAnswers() . '<BR />
-                    </div>
-                </div>        
-                ';
-                /*
-				echo $question->QuestionID . " ";
-				echo $question->Text . " ";
-				echo $question->Description . "<br />";
-				#call showAnswers() method to display array of Answer objects
-				$question->showAnswers() . "<br />";
-                */
+				$myReturn .= $question->Number . ') '; # We're using new Number property instead of id - v2
+				$myReturn .= $question->Text . ' ';
+				if($question->Description != ''){$myReturn .= '<em>(' . $question->Description . ')</em>';}
+				$myReturn .= '<br />';
+				$myReturn .= $question->showAnswers() . '<br />'; #display array of answer objects
 			}
 		}else{
-			$myReturn .= "There are currently no questions for this survey.";	
+			$myReturn .= 'There are currently no questions for this survey.';	
 		}
-        
-        return $myReturn;
 		
+		return $myReturn;
 	}# end showQuestions() method
 }# end Survey class

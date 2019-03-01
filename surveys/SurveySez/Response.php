@@ -77,7 +77,7 @@ class Response extends Survey
 		$this->ResponseID = (int)$id;
 		if($this->ResponseID == 0){return FALSE;} # invalid response id - abort
 		$iConn = \IDB::conn(); # uses a singleton DB class to create a mysqli improved connection
-
+//\IDB is the root namespace folder
 		$sql = sprintf("select SurveyID, DateAdded from " . PREFIX . "responses where ResponseID =%d",$this->ResponseID);
 		$result = mysqli_query($iConn,$sql) or die(trigger_error(mysqli_error($iConn), E_USER_ERROR));
 		if (mysqli_num_rows($result) > 0)

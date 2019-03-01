@@ -125,7 +125,8 @@ function session_write($sid, $data) {
  	mysqli_query($iConn,$sql);
 	
 	# Return number of rows updated/inserted
-	return mysqli_affected_rows($iConn);
+	//return mysqli_affected_rows($iConn);
+    return true;
 
 } # End session_write()
 

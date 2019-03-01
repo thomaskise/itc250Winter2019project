@@ -19,6 +19,8 @@
 require '../inc_0700/config_inc.php'; #provides configuration, pathing, error handling, db credentials
 spl_autoload_register('MyAutoLoader::NamespaceLoader');//required to load SurveySez namespace objects
 $config->metaRobots = 'no index, no follow';#never index survey pages
+//adds font awesome icons for arrows on pager
+$config->loadhead .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">';//must be above getheader()
 
 # check variable of item passed in - if invalid data, forcibly redirect back to demo_list.php page
 if(isset($_GET['id']) && (int)$_GET['id'] > 0){#proper data must be on querystring
@@ -27,7 +29,7 @@ if(isset($_GET['id']) && (int)$_GET['id'] > 0){#proper data must be on querystri
 	myRedirect(VIRTUAL_PATH . "surveys/index.php");
 }
 
-$mySurvey = new SurveySez\Survey($myID); //MY_Survey extends survey class so methods can be added
+$mySurvey = new SurveySez\MY_Survey($myID); //MY_Survey extends survey class so methods can be added
 if($mySurvey->isValid)
 {
 	$config->titleTag = "'" . $mySurvey->Title . "' Survey!";
@@ -38,20 +40,39 @@ if($mySurvey->isValid)
 
 get_header(); #defaults to theme header or header_inc.php
 ?>
-<h3>Survey Detail</h3>
+<h3><?=$mySurvey->Title;?></h3>
 
 <?php
 
 if($mySurvey->isValid)
 { #check to see if we have a valid SurveyID
-	echo '<p>' . $mySurvey->Description . '</p>';
+	echo '<p class="text-muted">' . $mySurvey->Description . '</p>';
 	echo $mySurvey->showQuestions();
+    
+	//Accesses a static function tacked on the namespaced class
+	//in the initial version, passes back the ID only (must be updated)
+    echo SurveySez\MY_Survey::responseList($myID);
 }else{
-	echo "The survey detail has not yet been created!";	
+	echo "Sorry, no such survey!";	
 }
 
- echo '<a href="' . VIRTUAL_PATH . 'surveys/index.php?pg=' . $_SESSION["currentpage"] . '">Check out another survey?</a>';
+
+
 
 get_footer(); #defaults to theme footer or footer_inc.php
+
+/*
+function responseList($myID)
+{
+   return $myID; 
+}
+*/
+
+
+
+
+
+
+
 
 
